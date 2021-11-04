@@ -3,7 +3,7 @@ LABEL maintainer="Tong Zhang <zhangt@frib.msu.edu>"
 
 WORKDIR /appbuilder
 
-COPY linuxdeploy-x86_64.AppImage .
+ADD https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage .
 COPY tux.png /tmp
 RUN chmod +x linuxdeploy-x86_64.AppImage && \
     ./linuxdeploy-x86_64.AppImage --appimage-extract && \
