@@ -8,13 +8,3 @@ build:
 
 push:
 	docker push $(IMAGE)
-
-test:
-	docker run --rm -it \
-		-v $(shell pwd):/appbuilder \
-		$(IMAGE) bash
-
-bootstrap:
-	docker run --rm -it \
-		-v $(shell pwd):/appbuilder \
-		$(IMAGE) /appbuilder/bootstrap.sh
