@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: Build and Publish Docker Image
 
 on:
   push:
@@ -21,6 +21,7 @@ jobs:
 
     - name: Build image and push to Docker Hub
       uses: docker/build-push-action@v2
+      id: docker-build
       with:
         # relative path to the place where source code with Dockerfile is located
         context: .
@@ -31,4 +32,4 @@ jobs:
         push: ${{ github.ref == 'refs/heads/master' }}
 
     - name: Image digest
-      run: echo ${{ steps.docker_build.outputs.digest }}
+      run: echo ${{ steps.docker-build.outputs.digest }}
