@@ -24,7 +24,7 @@ function init {
 # Install additional dependencies, $@
 function install-packages {
     echo "Install Debian packages..."
-    apt-get -y install "$@"
+    ! [[ $# -eq 0 ]] && apt-get -y install "$@" || return 0
 }
 
 #
@@ -32,9 +32,9 @@ function install-packages {
 # artifacts generated show up in the current directory
 function get-epics-base {
     echo "Get EPICS base version ${ver}..."
-    wget --no-check-certificate \
-        https://epics.anl.gov/download/base/base-${ver}.tar.gz .
-    tar xvf base-${ver}.tar.gz
+    ! [[ -e base-${ver} ]] && wget --no-check-certificate \
+        https://epics.anl.gov/download/base/base-${ver}.tar.gz && \
+        tar xvf base-${ver}.tar.gz || return 0
 }
 
 # Build EPICS base
@@ -95,14 +95,15 @@ function recipe-softIocPVA {
 
 ## Real work started below...
 ## Initialization
-# init
+init
 
 ## Install additional pacakge via apt-get
 # install-packages pkg-name1 pkg-name2 ...
+install-packages
 
 ## grab the source if does not exist
 ver="7.0.6.1"
-! [ -e base-${ver}.tar.gz ] && get-epics-base
+get-epics-base
 
 ## build epics base
 build-epics-base
