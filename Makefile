@@ -1,10 +1,14 @@
-IMAGE := tonyzhang/xenial-appimage:latest
+IMAGE := "tonyzhang/xenial-appimage:latest"
+.PHONY: bootstrap test
 
-download:
-	wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage
+bootstrap:
+	docker run --rm -it \
+		--user $(shell id -u):$(shell id -g) \
+		-v $(shell pwd):/appbuilder \
+		$(IMAGE) /appbuilder/bootstrap.sh
 
-build:
-	docker build -t $(IMAGE) .
-
-push:
-	docker push $(IMAGE)
+test:
+	docker run --rm -it \
+		--user $(shell id -u):$(shell id -g) \
+		-v $(shell pwd):/appbuilder \
+		$(IMAGE) bash

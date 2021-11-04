@@ -1,6 +1,4 @@
-# Docker image for AppImage Building
+# AppImages from EPICS base
 
-
-## Build AppImages from EPICS base
-
-Change the current working directory to *epics-base-tools*, and run: ``make bootstrap | tee -a log``, edit `bootstrap.sh` as needed.
+## Build
+In the Terminal, run: ``make bootstrap | tee -a log``, edit `bootstrap.sh` as needed.
