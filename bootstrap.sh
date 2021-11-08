@@ -16,16 +16,23 @@ cleanup() {
 # initialization before building AppImages
 init() {
     echo "Initialization..."
-    #exe_name="softIocPVA"
-    exe_name="caget caput camonitor cainfo softIoc"
-    exe_name+=" pvget pvput pvmonitor pvinfo pvcall p2p softIocPVA"
-    # combined=false # each exe to one AppImage
-    combined=true # all exes to a single AppImage
-    base_ver="7.0.6.1"
+    # a string of tool names, "all": All ELFs in bin directory.
+    exe_name=${ENV_APP_NAME:-"all"}
+
+    # false: each exe to one AppImage
+    # true: all exes to a single AppImage
+    combined=${ENV_COMBINED:-false}
+
+    # EPICS base version
+    base_ver=${ENV_BASE_VERSION:-"7.0.6.1"}
+
+    # additional package to install
+    packages_to_install=${ENV_PKG:-""}
+
+    #
     cwdir="."
     base_path="${cwdir}/base-${base_ver}"
     appdir_path="AppDir"
-    packages_to_install=""
 }
 
 # Modified AppDir, if needed.
@@ -73,6 +80,12 @@ build-appimage() {
 
     ## build epics base
     build-epics-base $base_path
+
+    # expand *exe_name* of 'all'
+    if [ $exe_name = "all" ]; then
+        exe_name=$(find "$base_path/bin/" -type f -exec file {} \; \
+            | grep ELF | awk -F':' '{print $1}' | awk -F'/' '{print $NF}')
+    fi
 
     # create AppImage(s)
     if ! [[ "$combined" = true ]]; then
