@@ -92,5 +92,5 @@ function config-entrypoint {
         /EPICS_Logo-192x192.png
     # patch AppRun
     rm $appdir_path/AppRun $appdir_path/usr/bin/epics-base-tools && \
-        cp entrypoint.sh $appdir_path/AppRun
+        cp /entrypoint.sh $appdir_path/AppRun
 }
