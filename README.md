@@ -1,4 +1,4 @@
-# AppImages from EPICS base
+# EPICS Tools AppImage
 
-## Build
+## Build AppImages from EPICS base
 In the Terminal, run: ``make bootstrap | tee -a log``, edit `bootstrap.sh` as needed.
