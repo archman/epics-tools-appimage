@@ -12,7 +12,6 @@ COMBINED := true
 
 bootstrap: pull
 	docker run --rm -it \
-		--user $(shell id -u):$(shell id -g) \
 		-v $(shell pwd):/appbuilder \
 		-e ENV_APP_NAME="$(shell echo $(APP_NAME))" \
 		-e ENV_COMBINED=$(COMBINED) \
@@ -22,7 +21,6 @@ bootstrap: pull
 
 test: pull
 	docker run --rm -it \
-		--user $(shell id -u):$(shell id -g) \
 		-v $(shell pwd):/appbuilder \
 		$(IMAGE) bash
 
