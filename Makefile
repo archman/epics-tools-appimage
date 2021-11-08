@@ -10,7 +10,7 @@ APP_NAME += "softIoc softIocPVA"
 BASE_VERSION := 7.0.6.1
 COMBINED := true
 
-bootstrap:
+bootstrap: pull
 	docker run --rm -it \
 		--user $(shell id -u):$(shell id -g) \
 		-v $(shell pwd):/appbuilder \
@@ -20,7 +20,7 @@ bootstrap:
 		-e ENV_PKG="" \
 		$(IMAGE) /appbuilder/bootstrap.sh
 
-test:
+test: pull
 	docker run --rm -it \
 		--user $(shell id -u):$(shell id -g) \
 		-v $(shell pwd):/appbuilder \
