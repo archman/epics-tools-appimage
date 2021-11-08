@@ -66,13 +66,13 @@ build-appimage() {
 
     ## Install additional pacakge via apt-get
     # install-packages pkg-name1 pkg-name2 ...
-    #install-packages $packages_to_install
+    install-packages $packages_to_install
 
     ## grab the source if does not exist
-    #get-epics-base $base_ver $cwdir
+    get-epics-base $base_ver $cwdir
 
     ## build epics base
-    #build-epics-base $base_path
+    build-epics-base $base_path
 
     # create AppImage(s)
     if ! [[ "$combined" = true ]]; then
@@ -85,14 +85,28 @@ build-appimage() {
         done
         wait
     else
-            create-appdir $base_path $app $appdir_path
-            appdir_path_var=$(get-appdir)
-            patch-appdir ${app} ${base_path} ${appdir_path_var}
-            generate-appimage ${appdir_path_var}
         echo "Build all ELFs into a single one AppImage."
+        appdir_path_var=${appdir_path}
+        for app in $exe_name; do
+            create-appdir $base_path $app $appdir_path
+            patch-appdir ${app} ${base_path} ${appdir_path}
+        done
+        rm $appdir_path/AppRun && \
+            find $appdir_path \( -iname '*.desktop' -o -iname '*.png' \) \
+            -exec rm {} \;
+        # placeholder ELF as the entrypoint for all
+        ! [ -e /tmp/bin/ ] && mkdir /tmp/bin
+        cp /bin/ls /tmp/bin/epics-base-tools
+        create-appdir "/tmp" "epics-base-tools" $appdir_path \
+            entrypoint.desktop \
+            EPICS_Logo-192x192.png
+        # patch AppRun
+        rm $appdir_path/AppRun $appdir_path/usr/bin/epics-base-tools && \
+            cp entrypoint.sh $appdir_path/AppRun
+        # bundled ELFs
+        generate-appimage ${appdir_path}
     fi
 }
 
 #
 build-appimage
-
