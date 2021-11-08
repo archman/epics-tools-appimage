@@ -1,4 +1,4 @@
-.PHONY: bootstrap test build
+.PHONY: bootstrap test
 
 IMAGE := "tonyzhang/appimage-epics-tools:latest"
 
@@ -19,9 +19,6 @@ bootstrap:
 		-e ENV_BASE_VERSION=$(BASE_VERSION) \
 		-e ENV_PKG="" \
 		$(IMAGE) /appbuilder/bootstrap.sh
-
-build:
-	docker build -t $(IMAGE) .
 
 test:
 	docker run --rm -it \
