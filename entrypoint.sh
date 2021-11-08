@@ -64,7 +64,7 @@ print_info() {
 
 list_apps() {
     elfs=$(cd $HERE/usr/bin && find . ! \( -name "${SHNAME}" -o -iname "." \) -exec basename {} \; | sort)
-    msg "All apps:"
+    msg "($(echo ${elfs} | wc -w)) apps are available:"
     msg ${BLUE}
     echo ${elfs}
     msg ${NOFORMAT}
