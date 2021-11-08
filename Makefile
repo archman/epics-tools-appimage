@@ -1,4 +1,4 @@
-.PHONY: bootstrap test
+.PHONY: bootstrap test pull
 
 IMAGE := "tonyzhang/appimage-epics-tools:latest"
 
@@ -25,3 +25,6 @@ test:
 		--user $(shell id -u):$(shell id -g) \
 		-v $(shell pwd):/appbuilder \
 		$(IMAGE) bash
+
+pull:
+	docker pull $(IMAGE)
