@@ -5,7 +5,7 @@ IMAGE := "tonyzhang/appimage-epics-tools:latest"
 APP_NAME := "caget caput camonitor cainfo"
 APP_NAME += "pvget pvput pvmonitor pvinfo"
 APP_NAME += "softIoc softIocPVA"
-# APP_NAME := ""
+APP_NAME := ""
 
 BASE_VERSION := 7.0.6.1
 COMBINED := true
