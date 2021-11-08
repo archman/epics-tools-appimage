@@ -75,3 +75,22 @@ function generate-appimage {
     local appdir_path=$1
     linuxdeploy --appdir $appdir_path --output appimage
 }
+
+
+# Post-processing AppDir, config entrypoint script.
+# $1: appdir_path
+function config-entrypoint {
+    local appdir_path=$1
+    rm $appdir_path/AppRun && \
+        find $appdir_path \( -iname '*.desktop' -o -iname '*.png' \) \
+        -exec rm {} \;
+    # placeholder ELF as the entrypoint for all
+    ! [ -e /tmp/bin/ ] && mkdir /tmp/bin
+    cp /bin/ls /tmp/bin/epics-base-tools
+    create-appdir "/tmp" "epics-base-tools" $appdir_path \
+        /entrypoint.desktop \
+        /EPICS_Logo-192x192.png
+    # patch AppRun
+    rm $appdir_path/AppRun $appdir_path/usr/bin/epics-base-tools && \
+        cp entrypoint.sh $appdir_path/AppRun
+}
