@@ -1,4 +1,4 @@
-.PHONY: bootstrap test pull
+.PHONY: bootstrap test pull wheel
 
 IMAGE := "tonyzhang/appimage-epics-tools:latest"
 
@@ -26,3 +26,6 @@ test: pull
 
 pull:
 	docker pull $(IMAGE)
+
+wheel:
+	python3 setup.py bdist_wheel
