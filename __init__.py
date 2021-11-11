@@ -17,6 +17,13 @@ APP_NAME_PATH_MAP = {
 }
 
 
+def _run_appimage(name):
+    """Run an AppImage.
+    """
+    cmd = [APP_NAME_PATH_MAP[name]] + sys.argv[1:]
+    subprocess.run(cmd, stderr=subprocess.STDOUT)
+
+
 def main():
     """Reserved for future.
     """
@@ -24,7 +31,7 @@ def main():
 
 
 # EPICS base tools
-run_epics_base_tools: _run_appimage('epics-base-tools')
+run_epics_base_tools = lambda: _run_appimage('epics-base-tools')
 # softIoc
 run_softIoc = lambda: _run_appimage('softIoc')
 # sofIocPVA
@@ -49,10 +56,3 @@ run_pvmonitor = lambda: _run_appimage('pvmonitor')
 run_p2p = lambda: _run_appimage('p2p')
 # pvcall
 run_pvcall = lambda: _run_appimage('pvcall')
-
-
-def _run_appimage(name):
-    """Run an AppImage.
-    """
-    cmd = [APP_NAME_PATH_MAP[name]] + sys.argv[1:]
-    subprocess.run(cmd, stderr=subprocess.STDOUT)
