@@ -13,7 +13,8 @@ will be included in future releases.
 On an x86_64 machine, type in the Terminal with ``pip install epics-appimage`` will install all built AppImages.
 
 Alternatively, each AppImage can also be downloaded from the release page,
-``chmod +x <AppImage>`` and run it.
+``chmod +x <AppImage>`` and run it. If only one AppImage is needed, download
+``epics-base-tools-x86_64.AppImage``.
 
 ### Run AppImage
 Typical EPICS base tools could be invoked by just typing the name in the
