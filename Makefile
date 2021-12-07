@@ -5,10 +5,12 @@ IMAGE := "tonyzhang/appimage-epics-tools:latest"
 APP_NAME := "caget caput camonitor cainfo"
 APP_NAME += "pvget pvput pvmonitor pvinfo"
 APP_NAME += "softIoc softIocPVA"
-APP_NAME := ""
+APP_NAME += "caRepeater caConnTest caEventRate casw ca_test catime iocLogServer makeBpt msi p2p pvcall pvlist"
+APP_NAME := "" # all ELFs
 
 BASE_VERSION := 7.0.6.1
-COMBINED := true
+# COMBINED := true
+COMBINED := false
 
 bootstrap: pull
 	docker run --rm -it \
@@ -31,7 +33,7 @@ wheel: clean
 	python3 setup.py bdist_wheel
 
 clean:
-	/bin/rm -rf dist/*.whl
+	/bin/rm -rf build dist
 
 test-install:
 	pip install dist/*.whl --user --upgrade --force-reinstall
