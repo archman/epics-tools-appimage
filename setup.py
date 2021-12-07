@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-import setuptools
-import pathlib
 
-CWDIR = pathlib.Path(__file__).parent
+import setuptools
+
+from _epics_appimage_apps import _fn_name_exec_map
 
 
 def readme():
@@ -14,10 +14,8 @@ def readme():
 def set_entry_points():
     r = {}
     r['console_scripts'] = []
-    for f in CWDIR.glob("AppImages/**/*.AppImage"):
-        exec_name = f.name.rsplit('-', 1)[0]
-        entry_name = 'run_' + exec_name.replace("-", "_")
-        r['console_scripts'].append(f"{exec_name}=epics_appimage:{entry_name}")
+    for app, fn_name in _fn_name_exec_map.items():
+        r['console_scripts'].append(f"{app}=epics_appimage.apps:{fn_name}")
     return r
 
 
@@ -42,11 +40,10 @@ setuptools.setup(
         'Operating System :: POSIX :: Linux'
     ],
     include_package_data=True,
-    packages=[
-        'epics_appimage',
-    ],
+    packages=['epics_appimage', 'epics_appimage.apps'],
     package_dir={
         'epics_appimage': '.',
+        'epics_appimage.apps': '_epics_appimage_apps',
     },
     entry_points=set_entry_points(),
 )
