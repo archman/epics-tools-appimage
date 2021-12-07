@@ -1,4 +1,4 @@
-.PHONY: bootstrap test pull wheel
+.PHONY: bootstrap test pull wheel clean test-install
 
 IMAGE := "tonyzhang/appimage-epics-tools:latest"
 
@@ -27,5 +27,12 @@ test: pull
 pull:
 	docker pull $(IMAGE)
 
-wheel:
+wheel: clean
 	python3 setup.py bdist_wheel
+
+clean:
+	/bin/rm -rf dist/*.whl
+
+test-install:
+	pip install dist/*.whl --user --upgrade --force-reinstall
+	caget
