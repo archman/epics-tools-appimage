@@ -15,7 +15,9 @@ APP_NAME_PATH_MAP = {
     for f in PKG_DIR.glob(f"_AppImage/{LAUNCHER_NAME}*.AppImage")
 }
 
-r = subprocess.run([APP_NAME_PATH_MAP[LAUNCHER_NAME], '--list'], capture_output=True, text=True)
+r = subprocess.run([APP_NAME_PATH_MAP[LAUNCHER_NAME], '--list'],
+                   capture_output=True,
+                   text=True)
 # a list of app names which could be launched from the global entry point
 SUPPORT_APP_LIST = r.stdout.strip().split()
 
@@ -28,10 +30,6 @@ class AppRunner(object):
         else:
             # + app name
             self._cmdlist = [APP_NAME_PATH_MAP[LAUNCHER_NAME], app_name]
-
-    def __call__(self):
-        """Run an AppImage."""
-        self._cmdlist = [APP_NAME_PATH_MAP[LAUNCHER_NAME], app_name]
 
     def __call__(self):
         """Run an AppImage."""
