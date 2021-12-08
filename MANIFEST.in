@@ -1,4 +1,3 @@
 include README.md
 include LICENSE
-recursive-include ./AppImages *
-recursive-exclude ./AppImages/Apps *
+recursive-include ./_AppImage *
