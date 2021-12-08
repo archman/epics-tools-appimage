@@ -10,16 +10,15 @@ will be included in future releases.
 ## User Guide
 
 ### Installation
-On an x86_64 machine, type in the Terminal with ``pip install epics-appimage`` will install all built AppImages.
+On an x86_64 machine, type in the Terminal with ``pip install epics-appimage`` to install the package.
 
 Alternatively, each AppImage can also be downloaded from the release page,
 ``chmod +x <AppImage>`` and run it. If only one AppImage is needed, download
 ``epics-base-tools-x86_64.AppImage``.
 
-### Run AppImage
+### Run
 Typical EPICS base tools could be invoked by just typing the name in the
-Terminal, e.g. ``softIoc``, ``caget``, ``caput``, etc. Each command is
-served from the regarding standalone AppImage.
+Terminal, e.g. ``softIoc``, ``caget``, ``caput``, etc.
 
 One special command called ``epics-base-tools`` is built to be used as the
 entry point for all the packaged tools, all packaged tools are sharing the
