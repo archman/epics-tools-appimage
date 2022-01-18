@@ -9,11 +9,15 @@
 # Tong Zhang <zhangt@frib.msu.edu>
 # 2021-11-08 11:06:21 EST
 #
-SHNAME=$(basename ${ARGV0})
+if [ -z ${ARGV0} ]; then
+    SHNAME=$(basename $0)
+else
+    SHNAME=$(basename ${ARGV0})
+fi
 
 usage() {
   cat <<EOF
-Usage: ${SHNAME} -i -l -h app-name
+Usage: epics-base-tools -i -l -h app-name
 
 Run the deployed EPICS base tools.
 
@@ -27,9 +31,7 @@ Available options:
 
 Examples:
  # use caget tool
- $SHNAME caget
- # create an alias for caget
- alias caget="$SHNAME caget"
+ epics-base-tools caget
 EOF
   exit
 }
