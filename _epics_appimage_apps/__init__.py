@@ -10,9 +10,13 @@ import sys
 LAUNCHER_NAME = 'epics-base-tools'
 
 PKG_DIR = pathlib.Path(__file__).parent.parent
+#APP_NAME_PATH_MAP = {
+#    f.name.rsplit('-', 1)[0]: f.resolve()
+#    for f in PKG_DIR.glob(f"_AppImage/{LAUNCHER_NAME}*.AppImage")
+#}
+
 APP_NAME_PATH_MAP = {
-    f.name.rsplit('-', 1)[0]: f.resolve()
-    for f in PKG_DIR.glob(f"_AppImage/{LAUNCHER_NAME}*.AppImage")
+    LAUNCHER_NAME: list(PKG_DIR.glob(f"_AppImage/**/AppRun"))[0].resolve()
 }
 
 r = subprocess.run([APP_NAME_PATH_MAP[LAUNCHER_NAME], '--list'],
