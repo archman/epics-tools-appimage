@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=epics-base-tools
+Exec=epics-base-tools
+Icon=EPICS_Logo-192x192
+Type=Application
+Categories=Utility;
