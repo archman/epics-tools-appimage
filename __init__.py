@@ -2,7 +2,7 @@
 
 __authors__ = "Tong Zhang"
 __contact__ = "Tong Zhang <zhangt@frib.msu.edu>"
-__version__ = "7.0.6.1-5"
+__version__ = "7.0.6.1-6"
 __doc__ = "AppImages built from EPICS base"
 
 
