@@ -8,9 +8,9 @@ APP_NAME += "softIoc softIocPVA"
 APP_NAME += "caRepeater caConnTest caEventRate casw ca_test catime iocLogServer makeBpt msi p2p pvcall pvlist"
 APP_NAME := "" # all ELFs
 
-BASE_VERSION := 7.0.6.1
-# COMBINED := true
-COMBINED := false
+BASE_VERSION ?= 7.0.7
+# COMBINED ?= true
+COMBINED ?= false
 
 bootstrap: pull
 	docker run --rm -it \
