@@ -2,7 +2,8 @@
 
 This project is intended to provide prebuilt EPICS base tools in the form
 of AppImages for the end-users, for those who usually do not need to have the full
-EPICS base built. Tools like ``softIoc``, ``caget``, ``caput``, ``cainfo``,
+EPICS base built. Each tool could be run on most of the Linux x64 platforms.
+Tools like ``softIoc``, ``caget``, ``caput``, ``cainfo``,
 ``camonitor``, ``softIocPVA``, ``pvget``, ``pvput``, ``pvinfo``,
 ``pvmonitor``, etc. could be used in the command line interface. More tools
 will be included in future releases.
@@ -10,7 +11,7 @@ will be included in future releases.
 ## User Guide
 
 ### Installation
-On an x86_64 machine, type in the Terminal with ``pip install epics-appimage`` to install the package.
+On an x86_64 machine, type in the Terminal with ``pip install epics-appimage`` to install the package, or with ``-U`` to update from the existing installation.
 
 Alternatively, each AppImage can also be downloaded from the release page,
 ``chmod +x <AppImage>`` and run it. If only one AppImage is needed, download
@@ -27,7 +28,7 @@ same libraries, thus this single AppImage is way more compact.
 Type ``epics-base-tools`` in the Terminal will output the usage message:
 ```bash
 Missing the app name!
-Usage: epics-base-tools-x86_64.AppImage -i -l -h app-name
+Usage: epics-base-tools -i -l -h app-name
 
 Run the deployed EPICS base tools.
 
@@ -41,10 +42,9 @@ Available options:
 
 Examples:
  # use caget tool
- epics-base-tools-x86_64.AppImage caget
- # create an alias for caget
- alias caget="epics-base-tools-x86_64.AppImage caget"
+ epics-base-tools caget
 ```
+To create an alias for `caget`: `alias caget="epics-base-tools caget"`
 
 ``epics-base-tools softIoc`` is equivalent as ``softIoc``, the same applies to other tools.
 
