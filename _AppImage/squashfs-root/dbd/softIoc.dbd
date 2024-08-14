@@ -65,6 +65,14 @@ menu(histogramCMD) {
     choice(histogramCMD_Start, "Start")
     choice(histogramCMD_Stop, "Stop")
 }
+menu(longoutOOPT) {
+    choice(longoutOOPT_Every_Time, "Every Time")
+    choice(longoutOOPT_On_Change, "On Change")
+    choice(longoutOOPT_When_Zero, "When Zero")
+    choice(longoutOOPT_When_Non_zero, "When Non-zero")
+    choice(longoutOOPT_Transition_To_Zero, "Transition To Zero")
+    choice(longoutOOPT_Transition_To_Non_zero, "Transition To Non-zero")
+}
 menu(menuAlarmSevr) {
     choice(menuAlarmSevrNO_ALARM, "NO_ALARM")
     choice(menuAlarmSevrMINOR, "MINOR")
@@ -6782,6 +6790,14 @@ recordtype(compress) {
         interest(1)
         special(SPC_RESET)
     }
+    field(PBUF, DBF_MENU) {
+        menu(menuYesNo)
+        initial("NO")
+        promptgroup("30 - Action")
+        prompt("Use Partial buffers")
+        interest(1)
+        special(SPC_RESET)
+    }
     field(BALG, DBF_MENU) {
         menu(bufferingALG)
         promptgroup("30 - Action")
@@ -10267,6 +10283,7 @@ recordtype(longout) {
         promptgroup("50 - Output")
         prompt("Output Specification")
         interest(1)
+        special(SPC_MOD)
     }
     field(DOL, DBF_INLINK) {
         promptgroup("40 - Input")
@@ -10440,7 +10457,7 @@ recordtype(longout) {
         interest(2)
     }
     field(SIMPVT, DBF_NOACCESS) {
-        extra("epicsCallback            *simpvt")
+        extra("epicsCallback       *simpvt")
         prompt("Sim. Mode Private")
         interest(4)
         special(SPC_NOMOD)
@@ -10455,6 +10472,29 @@ recordtype(longout) {
         promptgroup("50 - Output")
         prompt("INVALID output value")
         interest(2)
+    }
+    field(PVAL, DBF_LONG) {
+        prompt("Previous Value")
+    }
+    field(OUTPVT, DBF_NOACCESS) {
+        extra("epicsEnum16         outpvt")
+        prompt("Output Write Control Private")
+        interest(4)
+        special(SPC_NOMOD)
+    }
+    field(OOCH, DBF_MENU) {
+        menu(menuYesNo)
+        initial("1")
+        promptgroup("50 - Output")
+        prompt("Output Exec. On Change (Opt)")
+        interest(1)
+    }
+    field(OOPT, DBF_MENU) {
+        menu(longoutOOPT)
+        initial("0")
+        promptgroup("50 - Output")
+        prompt("Output Execute Opt")
+        interest(1)
     }
 }
 device(longout, CONSTANT, devLoSoft, "Soft Channel")
@@ -13795,6 +13835,7 @@ recordtype(mbboDirect) {
     field(B0, DBF_UCHAR) {
         promptgroup("51 - Output 0-7")
         prompt("Bit 0")
+        asl(ASL0)
         pp(TRUE)
         interest(1)
         special(SPC_MOD)
@@ -13802,6 +13843,7 @@ recordtype(mbboDirect) {
     field(B1, DBF_UCHAR) {
         promptgroup("51 - Output 0-7")
         prompt("Bit 1")
+        asl(ASL0)
         pp(TRUE)
         interest(1)
         special(SPC_MOD)
@@ -13809,6 +13851,7 @@ recordtype(mbboDirect) {
     field(B2, DBF_UCHAR) {
         promptgroup("51 - Output 0-7")
         prompt("Bit 2")
+        asl(ASL0)
         pp(TRUE)
         interest(1)
         special(SPC_MOD)
@@ -13816,6 +13859,7 @@ recordtype(mbboDirect) {
     field(B3, DBF_UCHAR) {
         promptgroup("51 - Output 0-7")
         prompt("Bit 3")
+        asl(ASL0)
         pp(TRUE)
         interest(1)
         special(SPC_MOD)
@@ -13823,6 +13867,7 @@ recordtype(mbboDirect) {
     field(B4, DBF_UCHAR) {
         promptgroup("51 - Output 0-7")
         prompt("Bit 4")
+        asl(ASL0)
         pp(TRUE)
         interest(1)
         special(SPC_MOD)
@@ -13830,6 +13875,7 @@ recordtype(mbboDirect) {
     field(B5, DBF_UCHAR) {
         promptgroup("51 - Output 0-7")
         prompt("Bit 5")
+        asl(ASL0)
         pp(TRUE)
         interest(1)
         special(SPC_MOD)
@@ -13837,6 +13883,7 @@ recordtype(mbboDirect) {
     field(B6, DBF_UCHAR) {
         promptgroup("51 - Output 0-7")
         prompt("Bit 6")
+        asl(ASL0)
         pp(TRUE)
         interest(1)
         special(SPC_MOD)
@@ -13844,6 +13891,7 @@ recordtype(mbboDirect) {
     field(B7, DBF_UCHAR) {
         promptgroup("51 - Output 0-7")
         prompt("Bit 7")
+        asl(ASL0)
         pp(TRUE)
         interest(1)
         special(SPC_MOD)
@@ -13851,6 +13899,7 @@ recordtype(mbboDirect) {
     field(B8, DBF_UCHAR) {
         promptgroup("52 - Output 8-15")
         prompt("Bit 8")
+        asl(ASL0)
         pp(TRUE)
         interest(1)
         special(SPC_MOD)
@@ -13858,6 +13907,7 @@ recordtype(mbboDirect) {
     field(B9, DBF_UCHAR) {
         promptgroup("52 - Output 8-15")
         prompt("Bit 9")
+        asl(ASL0)
         pp(TRUE)
         interest(1)
         special(SPC_MOD)
@@ -13865,6 +13915,7 @@ recordtype(mbboDirect) {
     field(BA, DBF_UCHAR) {
         promptgroup("52 - Output 8-15")
         prompt("Bit 10")
+        asl(ASL0)
         pp(TRUE)
         interest(1)
         special(SPC_MOD)
@@ -13872,6 +13923,7 @@ recordtype(mbboDirect) {
     field(BB, DBF_UCHAR) {
         promptgroup("52 - Output 8-15")
         prompt("Bit 11")
+        asl(ASL0)
         pp(TRUE)
         interest(1)
         special(SPC_MOD)
@@ -13879,6 +13931,7 @@ recordtype(mbboDirect) {
     field(BC, DBF_UCHAR) {
         promptgroup("52 - Output 8-15")
         prompt("Bit 12")
+        asl(ASL0)
         pp(TRUE)
         interest(1)
         special(SPC_MOD)
@@ -13886,6 +13939,7 @@ recordtype(mbboDirect) {
     field(BD, DBF_UCHAR) {
         promptgroup("52 - Output 8-15")
         prompt("Bit 13")
+        asl(ASL0)
         pp(TRUE)
         interest(1)
         special(SPC_MOD)
@@ -13893,6 +13947,7 @@ recordtype(mbboDirect) {
     field(BE, DBF_UCHAR) {
         promptgroup("52 - Output 8-15")
         prompt("Bit 14")
+        asl(ASL0)
         pp(TRUE)
         interest(1)
         special(SPC_MOD)
@@ -13900,6 +13955,7 @@ recordtype(mbboDirect) {
     field(BF, DBF_UCHAR) {
         promptgroup("52 - Output 8-15")
         prompt("Bit 15")
+        asl(ASL0)
         pp(TRUE)
         interest(1)
         special(SPC_MOD)
@@ -13907,6 +13963,7 @@ recordtype(mbboDirect) {
     field(B10, DBF_UCHAR) {
         promptgroup("53 - Output 16-23")
         prompt("Bit 16")
+        asl(ASL0)
         pp(TRUE)
         interest(1)
         special(SPC_MOD)
@@ -13914,6 +13971,7 @@ recordtype(mbboDirect) {
     field(B11, DBF_UCHAR) {
         promptgroup("53 - Output 16-23")
         prompt("Bit 17")
+        asl(ASL0)
         pp(TRUE)
         interest(1)
         special(SPC_MOD)
@@ -13921,6 +13979,7 @@ recordtype(mbboDirect) {
     field(B12, DBF_UCHAR) {
         promptgroup("53 - Output 16-23")
         prompt("Bit 18")
+        asl(ASL0)
         pp(TRUE)
         interest(1)
         special(SPC_MOD)
@@ -13928,6 +13987,7 @@ recordtype(mbboDirect) {
     field(B13, DBF_UCHAR) {
         promptgroup("53 - Output 16-23")
         prompt("Bit 19")
+        asl(ASL0)
         pp(TRUE)
         interest(1)
         special(SPC_MOD)
@@ -13935,6 +13995,7 @@ recordtype(mbboDirect) {
     field(B14, DBF_UCHAR) {
         promptgroup("53 - Output 16-23")
         prompt("Bit 20")
+        asl(ASL0)
         pp(TRUE)
         interest(1)
         special(SPC_MOD)
@@ -13942,6 +14003,7 @@ recordtype(mbboDirect) {
     field(B15, DBF_UCHAR) {
         promptgroup("53 - Output 16-23")
         prompt("Bit 21")
+        asl(ASL0)
         pp(TRUE)
         interest(1)
         special(SPC_MOD)
@@ -13949,6 +14011,7 @@ recordtype(mbboDirect) {
     field(B16, DBF_UCHAR) {
         promptgroup("53 - Output 16-23")
         prompt("Bit 22")
+        asl(ASL0)
         pp(TRUE)
         interest(1)
         special(SPC_MOD)
@@ -13956,6 +14019,7 @@ recordtype(mbboDirect) {
     field(B17, DBF_UCHAR) {
         promptgroup("53 - Output 16-23")
         prompt("Bit 23")
+        asl(ASL0)
         pp(TRUE)
         interest(1)
         special(SPC_MOD)
@@ -13963,6 +14027,7 @@ recordtype(mbboDirect) {
     field(B18, DBF_UCHAR) {
         promptgroup("54 - Output 24-31")
         prompt("Bit 24")
+        asl(ASL0)
         pp(TRUE)
         interest(1)
         special(SPC_MOD)
@@ -13970,6 +14035,7 @@ recordtype(mbboDirect) {
     field(B19, DBF_UCHAR) {
         promptgroup("54 - Output 24-31")
         prompt("Bit 25")
+        asl(ASL0)
         pp(TRUE)
         interest(1)
         special(SPC_MOD)
@@ -13977,6 +14043,7 @@ recordtype(mbboDirect) {
     field(B1A, DBF_UCHAR) {
         promptgroup("54 - Output 24-31")
         prompt("Bit 26")
+        asl(ASL0)
         pp(TRUE)
         interest(1)
         special(SPC_MOD)
@@ -13984,6 +14051,7 @@ recordtype(mbboDirect) {
     field(B1B, DBF_UCHAR) {
         promptgroup("54 - Output 24-31")
         prompt("Bit 27")
+        asl(ASL0)
         pp(TRUE)
         interest(1)
         special(SPC_MOD)
@@ -13991,6 +14059,7 @@ recordtype(mbboDirect) {
     field(B1C, DBF_UCHAR) {
         promptgroup("54 - Output 24-31")
         prompt("Bit 28")
+        asl(ASL0)
         pp(TRUE)
         interest(1)
         special(SPC_MOD)
@@ -13998,6 +14067,7 @@ recordtype(mbboDirect) {
     field(B1D, DBF_UCHAR) {
         promptgroup("54 - Output 24-31")
         prompt("Bit 29")
+        asl(ASL0)
         pp(TRUE)
         interest(1)
         special(SPC_MOD)
@@ -14005,6 +14075,7 @@ recordtype(mbboDirect) {
     field(B1E, DBF_UCHAR) {
         promptgroup("54 - Output 24-31")
         prompt("Bit 30")
+        asl(ASL0)
         pp(TRUE)
         interest(1)
         special(SPC_MOD)
@@ -14012,6 +14083,7 @@ recordtype(mbboDirect) {
     field(B1F, DBF_UCHAR) {
         promptgroup("54 - Output 24-31")
         prompt("Bit 31")
+        asl(ASL0)
         pp(TRUE)
         interest(1)
         special(SPC_MOD)
