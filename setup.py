@@ -20,7 +20,7 @@ def set_entry_points():
 
 
 _name = "epics-appimage"
-_version = "7.0.7-1"
+_version = "7.0.8.1"
 
 setuptools.setup(
     name=_name,
